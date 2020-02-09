@@ -1,0 +1,101 @@
+---
+title: "Merging b(a)p Files"
+author: "Lizzy Gibson"
+date: "2/2/2020"
+output:
+  html_document:
+   toc: TRUE
+   toc_float: TRUE
+   toc_depth: 4
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse) # For reading CSV files
+library(janitor) 
+library(haven) # For reading SAS, SPSS, and STATA files
+library(readxl) # For reading Excel files
+```
+
+## Merging Files
+
+### Read In
+
+```{r}
+bap_i <- read_csv("./Benzo(a)pyrene Toxcast Summary_I.csv") %>% clean_names()
+
+bap_i
+dim(bap_i)
+#read_xls("./Benzo(a)pyrene Toxcast Summary_I.xls") %>% clean_names()
+
+bap_ii <- read_csv("./Benzo(a)pyrene Toxcast Summary_II.csv") %>% clean_names()
+
+bap_ii
+dim(bap_ii)
+#read_xls("./Benzo(a)pyrene Toxcast Summary_II.xls") %>% clean_names()
+```
+
+### Merge
+
+```{r}
+left <- left_join(bap_i, bap_ii, by = "name")
+
+dim(left)
+
+right <- right_join(bap_i, bap_ii, by = "name")
+
+dim(right)
+
+full <- full_join(bap_i, bap_ii, by = "name")
+
+dim(full)
+full
+```
+
+### Clean
+
+```{r}
+full %>% 
+  mutate_at(c("top", "scaled_top", "ac50"), as.numeric)
+
+full <- full %>% 
+  mutate(top = as.numeric(top),
+         scaled_top = as.numeric(scaled_top),
+         ac50 = as.numeric(ac50))
+```
+
+### Subset
+
+```{r}
+full %>%
+  select(gene_symbol) %>% table()
+
+full %>% 
+  select(-gene_url)
+```
+
+### Edit
+
+```{r}
+full %>% 
+  mutate(log_ac50 = log10(ac50))
+```
+
+### Viz
+
+```{r, fig.width=12}
+full %>% 
+  mutate(name = str_remove(name, "TOX21_"),
+         name = as.factor(name),
+         name = fct_reorder(name, ac50, .desc = TRUE)) %>% 
+  ggplot(aes(x = name, y = ac50)) +
+  geom_point(aes(color = gene_symbol)) +
+  labs(x = "Assay", y = "AC50", 
+       title = "Benzo(a)pyrene Assay Toxicity", 
+       color = "Gene Symbol") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_y_log10()
+```
+

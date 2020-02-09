@@ -1,0 +1,69 @@
+﻿NAME,DESCRIPTION,SEQAPASS,GENE_SYMBOL,GENE_NAME,GENE_URL,AOP,EVENT,HIT_CALL
+TOX21_AR_BLA_Agonist_ratio,761,P10275.2,AR,androgen receptor,https://www.ncbi.nlm.nih.gov/gene/367,187,1134,ACTIVE
+TOX21_AR_LUC_MDAKB2_Antagonist_10nM_R1881,765,P10275.2,AR,androgen receptor,https://www.ncbi.nlm.nih.gov/gene/367,187,1134,ACTIVE
+TOX21_ERa_BLA_Agonist_ch2,-,-,-,-,-,-,-,ACTIVE
+TOX21_ERa_BLA_Agonist_ratio,785,NP_000116.2,ESR1,estrogen receptor 1,https://www.ncbi.nlm.nih.gov/gene/2099,200,1181,ACTIVE
+TOX21_ERa_LUC_VM7_Agonist,788,NP_000116.2,ESR1,estrogen receptor 1,https://www.ncbi.nlm.nih.gov/gene/2099,200,1181,ACTIVE
+TOX21_ERa_LUC_VM7_Antagonist_0.5nM_E2,789,NP_000116.2,ESR1,estrogen receptor 1,https://www.ncbi.nlm.nih.gov/gene/2099,200,1181,ACTIVE
+TOX21_GR_BLA_Agonist_ch2,-,-,-,-,-,-,-,ACTIVE
+TOX21_GR_BLA_Agonist_ratio,-,NP_000167.1,NR3C1,"nuclear receptor subfamily 3, group C, member 1 (glucocorticoid receptor)",https://www.ncbi.nlm.nih.gov/gene/2908,66,654,ACTIVE
+TOX21_MMP_fitc,-,-,-,-,-,-,-,ACTIVE
+TOX21_MMP_ratio_down,-,-,-,-,-,-,-,ACTIVE
+TOX21_MMP_rhodamine,-,-,-,-,-,-,-,ACTIVE
+TOX21_MMP_viability,-,-,-,-,-,-,-,ACTIVE
+TOX21_PPARg_BLA_Agonist_ch2,-,-,-,-,-,-,-,ACTIVE
+TOX21_PPARg_BLA_Agonist_ratio,802,NP_056953.2,PPARG,peroxisome proliferator-activated receptor gamma,https://www.ncbi.nlm.nih.gov/gene/5468,163,1028,ACTIVE
+TOX21_AhR_LUC_Agonist,-,NP_001612.1,AHR,aryl hydrocarbon receptor,https://www.ncbi.nlm.nih.gov/gene/196,150,18,ACTIVE
+TOX21_ARE_BLA_agonist_ratio,-,NP_006155.2,NFE2L2,"nuclear factor, erythroid 2-like 2",https://www.ncbi.nlm.nih.gov/gene/4780,-,-,ACTIVE
+TOX21_HSE_BLA_agonist_ch2,-,-,-,-,-,-,-,ACTIVE
+TOX21_HSE_BLA_agonist_ratio,-,NP_005517.1,HSF1,heat shock transcription factor 1,https://www.ncbi.nlm.nih.gov/gene/3297,-,-,ACTIVE
+TOX21_p53_BLA_p1_ch2,-,-,-,-,-,-,-,ACTIVE
+TOX21_p53_BLA_p1_ratio,-,NP_000537.3,TP53,tumor protein p53,https://www.ncbi.nlm.nih.gov/gene/7157,-,-,ACTIVE
+TOX21_FXR_BLA_agonist_ch2,-,-,-,-,-,-,-,ACTIVE
+TOX21_FXR_BLA_agonist_ratio,1119,NP_001193922.1,NR1H4,"nuclear receptor subfamily 1, group H, member 4",https://www.ncbi.nlm.nih.gov/gene/9971,61,479,ACTIVE
+TOX21_FXR_BLA_antagonist_ratio,1120,NP_001193922.1,NR1H4,"nuclear receptor subfamily 1, group H, member 4",https://www.ncbi.nlm.nih.gov/gene/9971,61,479,ACTIVE
+TOX21_PPARd_BLA_agonist_ch2,-,-,-,-,-,-,-,ACTIVE
+TOX21_PPARd_BLA_agonist_ratio,1124,NP_006229.1,PPARD,peroxisome proliferator-activated receptor delta,https://www.ncbi.nlm.nih.gov/gene/5467,36,232,ACTIVE
+TOX21_VDR_BLA_agonist_ch2,-,-,-,-,-,-,-,ACTIVE
+TOX21_VDR_BLA_agonist_ratio,-,NP_000773.2,CYP24A1,"cytochrome P450, family 24, subfamily A, polypeptide 1",https://www.ncbi.nlm.nih.gov/gene/1591,-,-,ACTIVE
+TOX21_ERa_BLA_Antagonist_ch1,-,-,-,-,-,-,-,ACTIVE
+TOX21_FXR_BLA_Antagonist_ch1,-,-,-,-,-,-,-,ACTIVE
+TOX21_GR_BLA_Antagonist_ch1,-,-,-,-,-,-,-,ACTIVE
+TOX21_PPARd_BLA_Antagonist_ch1,-,-,-,-,-,-,-,ACTIVE
+TOX21_PPARg_BLA_Antagonist_ch1,-,-,-,-,-,-,-,ACTIVE
+TOX21_VDR_BLA_Antagonist_ch1,-,-,-,-,-,-,-,ACTIVE
+TOX21_AR_BLA_Antagonist_ch1,-,-,-,-,-,-,-,ACTIVE
+TOX21_p53_BLA_p2_ch2,-,-,-,-,-,-,-,ACTIVE
+TOX21_p53_BLA_p2_ratio,-,NP_000537.3,TP53,tumor protein p53,https://www.ncbi.nlm.nih.gov/gene/7157,-,-,ACTIVE
+TOX21_p53_BLA_p3_ch2,-,-,-,-,-,-,-,ACTIVE
+TOX21_p53_BLA_p3_ratio,-,NP_000537.3,TP53,tumor protein p53,https://www.ncbi.nlm.nih.gov/gene/7157,-,-,ACTIVE
+TOX21_p53_BLA_p4_ch2,-,-,-,-,-,-,-,ACTIVE
+TOX21_p53_BLA_p4_ratio,-,NP_000537.3,TP53,tumor protein p53,https://www.ncbi.nlm.nih.gov/gene/7157,-,-,ACTIVE
+TOX21_p53_BLA_p5_ch2,-,-,-,-,-,-,-,ACTIVE
+TOX21_p53_BLA_p5_ratio,-,NP_000537.3,TP53,tumor protein p53,https://www.ncbi.nlm.nih.gov/gene/7157,-,-,ACTIVE
+TOX21_ESRE_BLA_ch2,-,-,-,-,-,-,-,ACTIVE
+TOX21_ESRE_BLA_ratio,-,NP_031374.2,ATF6,activating transcription factor 6,https://www.ncbi.nlm.nih.gov/gene/22926,-,-,ACTIVE
+TOX21_NFkB_BLA_agonist_ch2,-,-,-,-,-,-,-,ACTIVE
+TOX21_AR_LUC_MDAKB2_Antagonist_0.5nM_R1881,-,P10275.2,AR,androgen receptor,https://www.ncbi.nlm.nih.gov/gene/367,187,1134,ACTIVE
+TOX21_RXR_BLA_Agonist_ch2,-,-,-,-,-,-,-,ACTIVE
+TOX21_RXR_BLA_Agonist_ratio,-,NP_002948.1,RXRA,"retinoid X receptor, alpha",https://www.ncbi.nlm.nih.gov/gene/6256,-,-,ACTIVE
+TOX21_AP1_BLA_Agonist_ch2,-,-,-,-,-,-,-,ACTIVE
+TOX21_CAR_Agonist,-,NP_001070948.1,NR1I3,"nuclear receptor subfamily 1, group I, member 3",https://www.ncbi.nlm.nih.gov/gene/9970,107,715,ACTIVE
+TOX21_CAR_Antagonist,-,NP_001070948.1,NR1I3,"nuclear receptor subfamily 1, group I, member 3",https://www.ncbi.nlm.nih.gov/gene/9970,107,715,ACTIVE
+TOX21_ERa_LUC_VM7_Antagonist_0.1nM_E2,-,NP_000116.2,ESR1,estrogen receptor 1,https://www.ncbi.nlm.nih.gov/gene/2099,200,1181,ACTIVE
+TOX21_ERR_Agonist,-,NP_004442.3,ESRRA,estrogen-related receptor alpha,https://www.ncbi.nlm.nih.gov/gene/2101,-,-,ACTIVE
+TOX21_HRE_BLA_Agonist_ch2,-,-,-,-,-,-,-,ACTIVE
+TOX21_HRE_BLA_Agonist_ratio,-,NP_001521.1,HIF1A,"hypoxia inducible factor 1, alpha subunit (basic helix-loop-helix transcription factor)",https://www.ncbi.nlm.nih.gov/gene/3091,-,-,ACTIVE
+TOX21_PGC_ERR_Agonist,-,NP_004442.3,ESRRA,estrogen-related receptor alpha,https://www.ncbi.nlm.nih.gov/gene/2101,-,-,ACTIVE
+TOX21_RT_HEK293_GLO_08hr_viability,-,-,-,-,-,-,-,ACTIVE
+TOX21_RT_HEK293_GLO_16hr_viability,-,-,-,-,-,-,-,ACTIVE
+TOX21_RT_HEK293_GLO_24hr_viability,-,-,-,-,-,-,-,ACTIVE
+TOX21_RT_HEPG2_FLO_32hr_ctrl_viability,-,-,-,-,-,-,-,ACTIVE
+TOX21_RT_HEPG2_FLO_40hr_ctrl_viability,-,-,-,-,-,-,-,ACTIVE
+TOX21_ERb_BLA_Agonist_ch2,-,-,-,-,-,-,-,ACTIVE
+TOX21_ERb_BLA_Agonist_ratio,-,NP_001428.1,ESR2,estrogen receptor 2 (ER beta),https://www.ncbi.nlm.nih.gov/gene/2100,-,-,ACTIVE
+TOX21_ERb_BLA_Antagonist_ch1,-,-,-,-,-,-,-,ACTIVE
+TOX21_PR_BLA_Agonist_ch2,-,-,-,-,-,-,-,ACTIVE
+TOX21_PR_BLA_Antagonist_ch1,-,-,-,-,-,-,-,ACTIVE
+TOX21_PR_BLA_Antagonist_ratio,-,NP_000917.3,PGR,progesterone receptor,https://www.ncbi.nlm.nih.gov/gene/5241,-,-,ACTIVE
+TOX21_PXR_viability,-,-,-,-,-,-,-,ACTIVE

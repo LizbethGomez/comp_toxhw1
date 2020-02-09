@@ -1,0 +1,6 @@
+---
+title: "HW 1"
+author: "Lizbeth Gomez"
+date: "2/9/2020"
+output: github_document
+---
