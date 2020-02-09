@@ -1,0 +1,17 @@
+base
+MASS
+drc
+tidyverse
+ggplot2
+tibble
+tidyr
+readr
+purrr
+dplyr
+stringr
+forcats
+janitor
+readxl
+sp
+raster
+tufte

@@ -1,10 +1,20 @@
 ---
 title: "HW 1 - Curve fitting to cytotoxicity data"
+subtitle: "Computational Toxicology"
 author: "Lizbeth Gomez & Nastasia Gernat"
-date: "2/9/2020"
-output: github_document
+date: "`r Sys.Date()`"
+output:
+  tufte::tufte_html: default
+  tufte::tufte_handout:
+    citation_package: natbib
+    latex_engine: xelatex
+  tufte::tufte_book:
+    citation_package: natbib
+    latex_engine: xelatex
+link-citations: yes
+
 ---
-```{r}
+```{r setup, include=FALSE}
 library(drc) 
 library(tidyverse) 
 library(dplyr)
@@ -12,17 +22,55 @@ library(janitor)
 library(ggplot2)
 library(readxl)
 library(raster) 
+library(tufte)
+
+
+# invalidate cache when the tufte version changes
+knitr::opts_chunk$set(tidy = FALSE, cache.extra = packageVersion('tufte'))
+options(htmltools.dir.version = FALSE)
 
 ```
 
+# Introduction:
+Rotenone is a pesticide that can be found naturally in the Fabaceae family of legumes and other  [plants](www.acs.org/content/acs/en/molecule-of-the-week/archive/r/rotenone.html) .
+It’s use as a pesticide has since diminished as it has been found to interrupts the electron transport chain complex I and leads to mitochondrial dysfunction [dysfunction](www.sciencedirect.com/topics/neuroscience/rotenone) .  Exposure can cause muscle tremors, vomiting, tachycardia and hypotension. Chronic exposure to Rotenone correlates with Parkinson disease like symptoms in humans and to the degeneration of nigral dopaminergic [neurons](www.nature.com/articles/srep45465) .
+
+# Methods:
+
+For this assignment a cytotoxicity assay was run with 10 exposure concentrations ranging from 0-5 μM of Rotenone. For each concentration there were six replicates run, which allowed us to look at the variability in cell death across the replications. Since the replicates had different cell counts, the percent death of each trial was averaged and then adjusted by replication; to do this, we divided the average cell count in each concentration by the cell number in non-treated conditions within replications.
+
+# Calculations
+
+## Coefficient of Variance:
+We calculated the coefficients of variance (CV)of the mean percent death of the six replicates to analyze the variation of responses across replicates ( Shown in Table 1 below) using the formula:
+$$CV=\frac{StandDev}{mean} * 100 $$
+
+## Four parameter log-logistic:
+Four parameter log-logistic  regression was run to fit a dose-response curve using the “drm” function within the “drc” package. The predictor variable was concentration and the outcome variable was mean percent cell death drom the control using the formula:
+$$y=d +\frac{a-d}{1+ \frac{x}{c}^b}  $$
+Where:  
+a = the minimum value that can be obtained (i.e. what happens at 0 dose)
+
+d = the maximum value that can be obtained (i.e. what happens at infinite dose)
+
+c = the point of inflection (i.e. the point on the S shaped curve halfway between a and d)
+
+b = Hill’s slope of the curve (i.e. this is related to the steepness of the curve at point c)  
+[MyAssays](https://www.myassays.com/four-parameter-logistic-regression.html)
+
+# Data Summary 
 ```{r}
+
 cyto_death = read_xlsx("data/cytotox_data.xlsx") %>%
   clean_names() 
 
-summary(cyto_death)
+summary(cyto_death) %>% 
+  knitr::kable()
+
+```
 
 
-
+```{r, include=FALSE}
 cyto_tidy_death = 
   pivot_longer(
     cyto_death, 
@@ -31,6 +79,13 @@ cyto_tidy_death =
     values_to = "rep")
 
 summary(cyto_tidy_death)
+```
+
+
+
+
+# Cell death per replication
+```{r fig-fullwidth, fig.width = 10, fig.height = 8, fig.fullwidth = TRUE, fig.cap = "Cell death per replication.", warning=FALSE, message=FALSE, cache=TRUE}
 
 cyto_death_plot <- cyto_tidy_death %>% 
   ggplot(aes(x = concentration, y = rep)) +
@@ -39,8 +94,13 @@ cyto_death_plot <- cyto_tidy_death %>%
   geom_smooth(method= "auto", se= TRUE) +
   xlab ("Concentration (μM)")+ ylab ("Cell Death Count by Replication")
 cyto_death_plot
+```
 
-#Absolute percent cell death per concentration by replication
+
+
+# Absolute percent cell death per concentration by replication
+
+```{r fig-fullwidth3, fig.width = 10, fig.height = 8, fig.fullwidth = TRUE, fig.cap = "Cell death per replication.", warning=FALSE, message=FALSE, cache=TRUE}
 
 cyto_death_plot_2 <- cyto_tidy_death %>% 
   ggplot(aes(x = concentration, y = avg_cell_death)) +
@@ -49,10 +109,14 @@ cyto_death_plot_2 <- cyto_tidy_death %>%
   geom_smooth(method= "auto", se= TRUE) +
   xlab ("Concentration (μM)")+ ylab ("Average Death")
 cyto_death_plot_2
+```
+
+<br>
 
 
+# Calculation of percent death from control
 
-#Calculation of percent death from control
+```{r fig-fullwidth2, fig.width = 9, fig.height = 7, fig.fullwidth = TRUE, fig.cap = "Percent death from control.", warning=FALSE, message=FALSE, cache=TRUE}
 cyto_death_plot_3 <- cyto_tidy_death %>% 
   ggplot(aes(x = concentration, y = from_ctr)) +
   ylim(0, 450) + xlim(0,6) +
@@ -62,6 +126,12 @@ cyto_death_plot_3 <- cyto_tidy_death %>%
 cyto_death_plot_3
 
 ```
+
+
+# Results:
+The maximum response of mean cell death was  35% at a concentration of 0.05μM. (Table 1 shown below) shows the concentrations  and the mean percent cell death over the six replications. Variance was onserved to be high at lower exposure concentrations with a highest of  82.66 at a concentration of 0.01 μM, while the coefficients of variance were significantly lower ranging from about 15-25 at higher exposure concentrations. 
+
+## Coefficient of variance
 
 ```{r}
 cv_mean <- cyto_tidy_death %>%
@@ -73,23 +143,30 @@ cv_mean <- cyto_tidy_death %>%
 
 ```
 
-```{r}
+
+# Four parameter log-logistic:
+The Four Parameter Llog-Logistic model showed a good fit for the dose response data with a slope of -4.58. The AC50 calculated was 0.076μM with a response of roughly 15% cell death. The AC50 and slope of the dose response curve are recorded in below on the output from the model.
+```{r, include=FALSE}
+
 regress_cyto<- drm(avg_cell_death ~concentration, data = cyto_tidy_death, fct = LL.4(names = c("Slope","Lower Limit", "Upper Limit", "AC50" )))
 
+```
 
 
+```{r}
 summary(regress_cyto)
+```
+
+
+# 95% Confidence intervals for LD50
+```{r}
+
+ED(regress_cyto, 50, interval = "delta")%>%
+ knitr::kable()
 
 ```
 
 ```{r}
-#Compute 95% CI for my IC50
-ED(regress_cyto, 50, interval = "delta")%>%
- knitr::kable()
-
 plot(regress_cyto, xlab = "Concentration (μM)", ylab = "Death (% from control)", col = "red", main = "Dose Response Curve for Rotenone")
- 
- 
- modelFit(regress_cyto)
 ```
 
