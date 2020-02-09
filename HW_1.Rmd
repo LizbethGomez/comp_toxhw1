@@ -36,7 +36,8 @@ cyto_death_plot <- cyto_tidy_death %>%
   ggplot(aes(x = concentration, y = rep)) +
   ylim(0, 45) + xlim(0,6) +
   geom_point(aes(color = replicates)) +
-  geom_smooth(method= "auto", se= TRUE) 
+  geom_smooth(method= "auto", se= TRUE) +
+  xlab ("Concentration (μM)")+ ylab ("Cell Death Count by Replication")
 cyto_death_plot
 
 #Absolute percent cell death per concentration by replication
@@ -45,7 +46,8 @@ cyto_death_plot_2 <- cyto_tidy_death %>%
   ggplot(aes(x = concentration, y = avg_cell_death)) +
   ylim(0, 45) + xlim(0,6) +
   geom_point() +
-  geom_smooth(method= "auto", se= TRUE) 
+  geom_smooth(method= "auto", se= TRUE) +
+  xlab ("Concentration (μM)")+ ylab ("Average Death")
 cyto_death_plot_2
 
 
@@ -55,7 +57,8 @@ cyto_death_plot_3 <- cyto_tidy_death %>%
   ggplot(aes(x = concentration, y = from_ctr)) +
   ylim(0, 450) + xlim(0,6) +
   geom_point() +
-  geom_smooth(method= "auto", se= TRUE) 
+  geom_smooth(method= "auto", se= TRUE) +
+  xlab ("Concentration (μM)")+ ylab ("Average Death (% from control)")
 cyto_death_plot_3
 
 ```
