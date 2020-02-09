@@ -15,3 +15,53 @@ library(raster) ## to compute the coefficient of variation
 
 ```
 
+```{r}
+cyto_death = read_xlsx("data/cytotox_data.xlsx") %>%
+  clean_names() 
+
+summary(cyto_death)
+
+
+
+cyto_death_plot <- cyto_death %>% 
+  ggplot(aes(x = concentration, y = avg_cell_death)) +
+  ylim(0, 45) + xlim(0,6) +
+  geom_point(aes(color = concentration)) 
+cyto_death_plot
+
+
+cyto_tidy_death = 
+  pivot_longer(
+    cyto_death, 
+    rep_1:rep_6,
+    names_to = "replicates", 
+    values_to = "rep")
+
+summary(cyto_tidy_death)
+
+cyto_death_plot <- cyto_tidy_death %>% 
+  ggplot(aes(x = concentration, y = rep)) +
+  ylim(0, 45) + xlim(0,6) +
+  geom_point(aes(color = replicates)) 
+cyto_death_plot
+
+```
+
+```{r}
+cv_mean <- cyto_tidy_death %>%
+ group_by(concentration)%>%
+  summarise(mean = mean(rep), #plate to plate variation
+            cv = cv(rep)) %>%
+ knitr::kable()
+  cv_mean
+
+```
+
+```{r}
+regress_cyto<- drm(rep ~concentration, data = cyto_tidy_death, fct = LL.4())
+
+
+regress_cyto <- drm(rep ~concentration, data = cyto_tidy_death, fct = LL.3(names = c("Slope", "Upper Limit", "LC50" )))
+summary(regress_cyto) 
+```
+
