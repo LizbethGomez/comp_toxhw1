@@ -1,6 +1,17 @@
 ---
-title: "HW 1"
-author: "Lizbeth Gomez"
+title: "HW 1 - Curve fitting to cytotoxicity data"
+author: "Lizbeth Gomez & Nastasia Gernat"
 date: "2/9/2020"
 output: github_document
 ---
+```{r}
+library(drc) ## for dose-response logistic regression
+library(tidyverse) #needs to be listed after drc otherwise you run into issues
+library(dplyr)
+library(janitor) ## to make column names have the same format
+library(ggplot2)
+library(readxl)
+library(raster) ## to compute the coefficient of variation
+
+```
+
