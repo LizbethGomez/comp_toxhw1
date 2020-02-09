@@ -63,7 +63,7 @@ cyto_death_plot_3
 ```{r}
 cv_mean <- cyto_tidy_death %>%
  group_by(concentration)%>%
-  summarise(mean = mean(rep), #plate to plate variation
+  summarise(mean = mean(rep), 
             cv = cv(rep)) %>%
  knitr::kable()
   cv_mean
@@ -71,10 +71,10 @@ cv_mean <- cyto_tidy_death %>%
 ```
 
 ```{r}
-regress_cyto<- drm(rep ~concentration, data = cyto_tidy_death, fct = LL.4())
+regress_cyto<- drm(avg_cell_death ~concentration, data = cyto_tidy_death, fct = LL.4(names = c("Slope","Lower Limit", "Upper Limit", "AC50" )))
 
 
-regress_cyto <- drm(rep ~concentration, data = cyto_tidy_death, fct = LL.3(names = c("Slope", "Upper Limit", "LC50" )))
+
 summary(regress_cyto)
 
 ```
@@ -84,7 +84,7 @@ summary(regress_cyto)
 ED(regress_cyto, 50, interval = "delta")%>%
  knitr::kable()
 
- plot(regress_cyto, xlab = "Concentration (μM)", ylab = "Death (% from control)", col = "red", main = "Dose Response Curve for Rotenone")
+plot(regress_cyto, xlab = "Concentration (μM)", ylab = "Death (% from control)", col = "red", main = "Dose Response Curve for Rotenone")
  
  
  modelFit(regress_cyto)

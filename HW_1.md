@@ -99,13 +99,13 @@ summary(cyto_death)
     ##  Mean   :20.353   Mean   :20.273   Mean   :19.731   Mean   :20.345  
     ##  3rd Qu.:29.160   3rd Qu.:28.153   3rd Qu.:27.656   3rd Qu.:28.268  
     ##  Max.   :40.276   Max.   :38.021   Max.   :44.000   Max.   :34.972  
-    ##     from_ctr    
-    ##  Min.   :  1.0  
-    ##  1st Qu.:100.0  
-    ##  Median :297.9  
-    ##  Mean   :237.6  
-    ##  3rd Qu.:344.0  
-    ##  Max.   :425.5
+    ##     from_ctr     
+    ##  Min.   : 75.49  
+    ##  1st Qu.:106.26  
+    ##  Median :297.88  
+    ##  Mean   :247.55  
+    ##  3rd Qu.:343.95  
+    ##  Max.   :425.52
 
 ``` r
 cyto_tidy_death = 
@@ -119,10 +119,10 @@ summary(cyto_tidy_death)
 ```
 
     ##  concentration    avg_cell_death      from_ctr       replicates       
-    ##  Min.   :0.0000   Min.   : 6.204   Min.   :  1.00   Length:60         
-    ##  1st Qu.:0.0100   1st Qu.: 8.219   1st Qu.: 91.71   Class :character  
+    ##  Min.   :0.0000   Min.   : 6.204   Min.   : 75.49   Length:60         
+    ##  1st Qu.:0.0100   1st Qu.: 8.219   1st Qu.:100.00   Class :character  
     ##  Median :0.1750   Median :24.481   Median :297.88   Mode  :character  
-    ##  Mean   :0.9411   Mean   :20.345   Mean   :237.65                     
+    ##  Mean   :0.9411   Mean   :20.345   Mean   :247.55                     
     ##  3rd Qu.:1.0000   3rd Qu.:28.884   3rd Qu.:351.45                     
     ##  Max.   :5.0000   Max.   :34.972   Max.   :425.52                     
     ##       rep        
@@ -173,14 +173,12 @@ cyto_death_plot_3
 
     ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 
-    ## Warning: Removed 1 rows containing missing values (geom_smooth).
-
 ![](HW_1_files/figure-gfm/unnamed-chunk-2-3.png)<!-- -->
 
 ``` r
 cv_mean <- cyto_tidy_death %>%
  group_by(concentration)%>%
-  summarise(mean = mean(rep), #plate to plate variation
+  summarise(mean = mean(rep), 
             cv = cv(rep)) %>%
  knitr::kable()
   cv_mean
@@ -200,28 +198,29 @@ cv_mean <- cyto_tidy_death %>%
 |         5.000 | 24.735796 | 14.80658 |
 
 ``` r
-regress_cyto<- drm(rep ~concentration, data = cyto_tidy_death, fct = LL.4())
+regress_cyto<- drm(avg_cell_death ~concentration, data = cyto_tidy_death, fct = LL.4(names = c("Slope","Lower Limit", "Upper Limit", "AC50" )))
 
 
-regress_cyto <- drm(rep ~concentration, data = cyto_tidy_death, fct = LL.3(names = c("Slope", "Upper Limit", "LC50" )))
+
 summary(regress_cyto)
 ```
 
     ## 
-    ## Model fitted: Log-logistic (ED50 as parameter) with lower limit at 0 (3 parms)
+    ## Model fitted: Log-logistic (ED50 as parameter) (4 parms)
     ## 
     ## Parameter estimates:
     ## 
     ##                           Estimate Std. Error t-value   p-value    
-    ## Slope:(Intercept)       -3.2234353  1.1921681 -2.7038  0.009019 ** 
-    ## Upper Limit:(Intercept) 29.4058373  1.3221236 22.2414 < 2.2e-16 ***
-    ## LC50:(Intercept)         0.0605162  0.0073582  8.2243 2.918e-11 ***
+    ## Slope:(Intercept)       -4.5811715  0.7947123 -5.7646 3.660e-07 ***
+    ## Lower Limit:(Intercept)  7.3587678  0.6522872 11.2815 4.638e-16 ***
+    ## Upper Limit:(Intercept) 29.3922745  0.5076047 57.9039 < 2.2e-16 ***
+    ## AC50:(Intercept)         0.0764826  0.0049467 15.4612 < 2.2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Residual standard error:
     ## 
-    ##  7.104517 (57 degrees of freedom)
+    ##  2.764221 (56 degrees of freedom)
 
 ``` r
 #Compute 95% CI for my IC50
@@ -233,14 +232,14 @@ ED(regress_cyto, 50, interval = "delta")%>%
     ## Estimated effective doses
     ## 
     ##         Estimate Std. Error     Lower     Upper
-    ## e:1:50 0.0605162  0.0073582 0.0457815 0.0752508
+    ## e:1:50 0.0764826  0.0049467 0.0665731 0.0863921
 
 |        |  Estimate | Std. Error |     Lower |     Upper |
 | ------ | --------: | ---------: | --------: | --------: |
-| e:1:50 | 0.0605162 |  0.0073582 | 0.0457815 | 0.0752508 |
+| e:1:50 | 0.0764826 |  0.0049467 | 0.0665731 | 0.0863921 |
 
 ``` r
- plot(regress_cyto, xlab = "Concentration (μM)", ylab = "Death (% from control)", col = "red", main = "Dose Response Curve for Rotenone")
+plot(regress_cyto, xlab = "Concentration (μM)", ylab = "Death (% from control)", col = "red", main = "Dose Response Curve for Rotenone")
 ```
 
 ![](HW_1_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
@@ -251,6 +250,6 @@ ED(regress_cyto, 50, interval = "delta")%>%
 
     ## Lack-of-fit test
     ## 
-    ##           ModelDf    RSS Df F value p value
-    ## ANOVA          50 1482.4                   
-    ## DRC model      57 2877.0  7  6.7197  0.0000
+    ##           ModelDf    RSS Df    F value    p value
+    ## ANOVA          50   0.00                         
+    ## DRC model      56 427.89  6 3.7923e+29 0.0000e+00
