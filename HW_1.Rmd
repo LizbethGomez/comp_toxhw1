@@ -5,13 +5,13 @@ date: "2/9/2020"
 output: github_document
 ---
 ```{r}
-library(drc) ## for dose-response logistic regression
-library(tidyverse) #needs to be listed after drc otherwise you run into issues
+library(drc) 
+library(tidyverse) 
 library(dplyr)
-library(janitor) ## to make column names have the same format
+library(janitor) 
 library(ggplot2)
 library(readxl)
-library(raster) ## to compute the coefficient of variation
+library(raster) 
 
 ```
 
@@ -21,13 +21,6 @@ cyto_death = read_xlsx("data/cytotox_data.xlsx") %>%
 
 summary(cyto_death)
 
-
-
-cyto_death_plot <- cyto_death %>% 
-  ggplot(aes(x = concentration, y = avg_cell_death)) +
-  ylim(0, 45) + xlim(0,6) +
-  geom_point(aes(color = concentration)) 
-cyto_death_plot
 
 
 cyto_tidy_death = 
@@ -42,8 +35,28 @@ summary(cyto_tidy_death)
 cyto_death_plot <- cyto_tidy_death %>% 
   ggplot(aes(x = concentration, y = rep)) +
   ylim(0, 45) + xlim(0,6) +
-  geom_point(aes(color = replicates)) 
+  geom_point(aes(color = replicates)) +
+  geom_smooth(method= "auto", se= TRUE) 
 cyto_death_plot
+
+#Absolute percent cell death per concentration by replication
+
+cyto_death_plot_2 <- cyto_tidy_death %>% 
+  ggplot(aes(x = concentration, y = avg_cell_death)) +
+  ylim(0, 45) + xlim(0,6) +
+  geom_point() +
+  geom_smooth(method= "auto", se= TRUE) 
+cyto_death_plot_2
+
+
+
+#Calculation of percent death from control
+cyto_death_plot_3 <- cyto_tidy_death %>% 
+  ggplot(aes(x = concentration, y = from_ctr)) +
+  ylim(0, 450) + xlim(0,6) +
+  geom_point() +
+  geom_smooth(method= "auto", se= TRUE) 
+cyto_death_plot_3
 
 ```
 
@@ -62,6 +75,18 @@ regress_cyto<- drm(rep ~concentration, data = cyto_tidy_death, fct = LL.4())
 
 
 regress_cyto <- drm(rep ~concentration, data = cyto_tidy_death, fct = LL.3(names = c("Slope", "Upper Limit", "LC50" )))
-summary(regress_cyto) 
+summary(regress_cyto)
+
+```
+
+```{r}
+#Compute 95% CI for my IC50
+ED(regress_cyto, 50, interval = "delta")%>%
+ knitr::kable()
+
+ plot(regress_cyto, xlab = "Concentration (μM)", ylab = "Death (% from control)", col = "red", main = "Dose Response Curve for Rotenone")
+ 
+ 
+ modelFit(regress_cyto)
 ```
 

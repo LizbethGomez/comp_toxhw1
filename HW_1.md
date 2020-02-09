@@ -4,7 +4,7 @@ Lizbeth Gomez & Nastasia Gernat
 2/9/2020
 
 ``` r
-library(drc) ## for dose-response logistic regression
+library(drc) 
 ```
 
     ## Loading required package: MASS
@@ -24,7 +24,7 @@ library(drc) ## for dose-response logistic regression
     ##     gaussian, getInitial
 
 ``` r
-library(tidyverse) #needs to be listed after drc otherwise you run into issues
+library(tidyverse) 
 ```
 
     ## ── Attaching packages ───────────────────────────────────────────────────── tidyverse 1.3.0 ──
@@ -41,7 +41,7 @@ library(tidyverse) #needs to be listed after drc otherwise you run into issues
 
 ``` r
 library(dplyr)
-library(janitor) ## to make column names have the same format
+library(janitor) 
 ```
 
     ## 
@@ -54,7 +54,7 @@ library(janitor) ## to make column names have the same format
 ``` r
 library(ggplot2)
 library(readxl)
-library(raster) ## to compute the coefficient of variation
+library(raster) 
 ```
 
     ## Loading required package: sp
@@ -98,17 +98,14 @@ summary(cyto_death)
     ##  Median :26.014   Median :21.094   Median :17.799   Median :24.481  
     ##  Mean   :20.353   Mean   :20.273   Mean   :19.731   Mean   :20.345  
     ##  3rd Qu.:29.160   3rd Qu.:28.153   3rd Qu.:27.656   3rd Qu.:28.268  
-    ##  Max.   :40.276   Max.   :38.021   Max.   :44.000   Max.   :34.972
-
-``` r
-cyto_death_plot <- cyto_death %>% 
-  ggplot(aes(x = concentration, y = avg_cell_death)) +
-  ylim(0, 45) + xlim(0,6) +
-  geom_point(aes(color = concentration)) 
-cyto_death_plot
-```
-
-![](HW_1_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+    ##  Max.   :40.276   Max.   :38.021   Max.   :44.000   Max.   :34.972  
+    ##     from_ctr    
+    ##  Min.   :  1.0  
+    ##  1st Qu.:100.0  
+    ##  Median :297.9  
+    ##  Mean   :237.6  
+    ##  3rd Qu.:344.0  
+    ##  Max.   :425.5
 
 ``` r
 cyto_tidy_death = 
@@ -121,23 +118,64 @@ cyto_tidy_death =
 summary(cyto_tidy_death)
 ```
 
-    ##  concentration    avg_cell_death    replicates             rep        
-    ##  Min.   :0.0000   Min.   : 6.204   Length:60          Min.   : 1.457  
-    ##  1st Qu.:0.0100   1st Qu.: 8.219   Class :character   1st Qu.: 9.117  
-    ##  Median :0.1750   Median :24.481   Mode  :character   Median :22.648  
-    ##  Mean   :0.9411   Mean   :20.345                      Mean   :20.345  
-    ##  3rd Qu.:1.0000   3rd Qu.:28.884                      3rd Qu.:28.666  
-    ##  Max.   :5.0000   Max.   :34.972                      Max.   :44.000
+    ##  concentration    avg_cell_death      from_ctr       replicates       
+    ##  Min.   :0.0000   Min.   : 6.204   Min.   :  1.00   Length:60         
+    ##  1st Qu.:0.0100   1st Qu.: 8.219   1st Qu.: 91.71   Class :character  
+    ##  Median :0.1750   Median :24.481   Median :297.88   Mode  :character  
+    ##  Mean   :0.9411   Mean   :20.345   Mean   :237.65                     
+    ##  3rd Qu.:1.0000   3rd Qu.:28.884   3rd Qu.:351.45                     
+    ##  Max.   :5.0000   Max.   :34.972   Max.   :425.52                     
+    ##       rep        
+    ##  Min.   : 1.457  
+    ##  1st Qu.: 9.117  
+    ##  Median :22.648  
+    ##  Mean   :20.345  
+    ##  3rd Qu.:28.666  
+    ##  Max.   :44.000
 
 ``` r
 cyto_death_plot <- cyto_tidy_death %>% 
   ggplot(aes(x = concentration, y = rep)) +
   ylim(0, 45) + xlim(0,6) +
-  geom_point(aes(color = replicates)) 
+  geom_point(aes(color = replicates)) +
+  geom_smooth(method= "auto", se= TRUE) 
 cyto_death_plot
 ```
 
+    ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+
+![](HW_1_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+
+``` r
+#Absolute percent cell death per concentration by replication
+
+cyto_death_plot_2 <- cyto_tidy_death %>% 
+  ggplot(aes(x = concentration, y = avg_cell_death)) +
+  ylim(0, 45) + xlim(0,6) +
+  geom_point() +
+  geom_smooth(method= "auto", se= TRUE) 
+cyto_death_plot_2
+```
+
+    ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+
 ![](HW_1_files/figure-gfm/unnamed-chunk-2-2.png)<!-- -->
+
+``` r
+#Calculation of percent death from control
+cyto_death_plot_3 <- cyto_tidy_death %>% 
+  ggplot(aes(x = concentration, y = from_ctr)) +
+  ylim(0, 450) + xlim(0,6) +
+  geom_point() +
+  geom_smooth(method= "auto", se= TRUE) 
+cyto_death_plot_3
+```
+
+    ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+
+    ## Warning: Removed 1 rows containing missing values (geom_smooth).
+
+![](HW_1_files/figure-gfm/unnamed-chunk-2-3.png)<!-- -->
 
 ``` r
 cv_mean <- cyto_tidy_death %>%
@@ -166,7 +204,7 @@ regress_cyto<- drm(rep ~concentration, data = cyto_tidy_death, fct = LL.4())
 
 
 regress_cyto <- drm(rep ~concentration, data = cyto_tidy_death, fct = LL.3(names = c("Slope", "Upper Limit", "LC50" )))
-summary(regress_cyto) 
+summary(regress_cyto)
 ```
 
     ## 
@@ -184,3 +222,35 @@ summary(regress_cyto)
     ## Residual standard error:
     ## 
     ##  7.104517 (57 degrees of freedom)
+
+``` r
+#Compute 95% CI for my IC50
+ED(regress_cyto, 50, interval = "delta")%>%
+ knitr::kable()
+```
+
+    ## 
+    ## Estimated effective doses
+    ## 
+    ##         Estimate Std. Error     Lower     Upper
+    ## e:1:50 0.0605162  0.0073582 0.0457815 0.0752508
+
+|        |  Estimate | Std. Error |     Lower |     Upper |
+| ------ | --------: | ---------: | --------: | --------: |
+| e:1:50 | 0.0605162 |  0.0073582 | 0.0457815 | 0.0752508 |
+
+``` r
+ plot(regress_cyto, xlab = "Concentration (μM)", ylab = "Death (% from control)", col = "red", main = "Dose Response Curve for Rotenone")
+```
+
+![](HW_1_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+
+``` r
+ modelFit(regress_cyto)
+```
+
+    ## Lack-of-fit test
+    ## 
+    ##           ModelDf    RSS Df F value p value
+    ## ANOVA          50 1482.4                   
+    ## DRC model      57 2877.0  7  6.7197  0.0000
