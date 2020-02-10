@@ -12,7 +12,7 @@
 
 <meta name="author" content="Lizbeth Gomez &amp; Nastasia Gernat" />
 
-<meta name="date" content="2020-02-09" />
+<meta name="date" content="2020-02-10" />
 
 <title>HW 1 - Curve fitting to cytotoxicity data</title>
 
@@ -269,7 +269,7 @@ if (window.hljs) {
 <h1 class="title toc-ignore">HW 1 - Curve fitting to cytotoxicity data</h1>
 <h3 class="subtitle">Computational Toxicology</h3>
 <h4 class="author">Lizbeth Gomez &amp; Nastasia Gernat</h4>
-<h4 class="date">2020-02-09</h4>
+<h4 class="date">2020-02-10</h4>
 
 
 
@@ -446,7 +446,7 @@ Percent death from control.
 </div>
 <div id="results" class="section level1">
 <h1>Results:</h1>
-<p>The maximum response of mean cell death was 35% at a concentration of 0.05μM. (Table 1 shown below) shows the concentrations and the mean percent cell death over the six replications. Variance was onserved to be high at lower exposure concentrations with a highest of 82.66 at a concentration of 0.01 μM, while the coefficients of variance were significantly lower ranging from about 15-25 at higher exposure concentrations.</p>
+<p>The maximum response of mean cell death was 35% at a concentration of 0.05μM. (Table 2 shown below) shows the concentrations and the mean percent cell death over the six replications. Variance was onserved to be high at lower exposure concentrations with a highest of 82.66 at a concentration of 0.01 μM, while the coefficients of variance were significantly lower ranging from about 15-25 at higher exposure concentrations.</p>
 <div id="coefficient-of-variance-1" class="section level2">
 <h2>Coefficient of variance</h2>
 <pre class="r"><code>cv_mean &lt;- cyto_tidy_death %&gt;%
@@ -520,7 +520,7 @@ Percent death from control.
 </div>
 <div id="four-parameter-log-logistic-1" class="section level1">
 <h1>Four parameter log-logistic:</h1>
-<p>The Four Parameter Llog-Logistic model showed a good fit for the dose response data with a slope of -4.58. The AC50 calculated was 0.076μM with a response of roughly 15% cell death. The AC50 and slope of the dose response curve are recorded in below on the output from the model.</p>
+<p>The Four Parameter Log-Logistic model showed a good fit for the dose response data with a slope of -4.58. The AC50 calculated was 0.076μM (e^.076 = 1.078) with a response of roughly 15% cell death. The AC50 and slope of the dose response curve are recorded in below on the output from the model.</p>
 <pre class="r"><code>summary(regress_cyto)</code></pre>
 <pre><code>## 
 ## Model fitted: Log-logistic (ED50 as parameter) (4 parms)
