@@ -31,9 +31,14 @@ options(htmltools.dir.version = FALSE)
 
 ```
 
+
+<center>
+![FigName](rotenone-teaser.png)
+<br>
+
 # Introduction:
-Rotenone is a pesticide that can be found naturally in the Fabaceae family of legumes and other  [plants](www.acs.org/content/acs/en/molecule-of-the-week/archive/r/rotenone.html) .
-It’s use as a pesticide has since diminished as it has been found to interrupts the electron transport chain complex I and leads to mitochondrial dysfunction [dysfunction](www.sciencedirect.com/topics/neuroscience/rotenone) .  Exposure can cause muscle tremors, vomiting, tachycardia and hypotension. Chronic exposure to Rotenone correlates with Parkinson disease like symptoms in humans and to the degeneration of nigral dopaminergic [neurons](www.nature.com/articles/srep45465) .
+Rotenone is a pesticide that can be found naturally in the Fabaceae family of legumes and other [plants](https://www.acs.org/content/acs/en/molecule-of-the-week/archive/r/rotenone.html) It’s use as a pesticide has since diminished as it has been found to interrupts the electron transport chain complex I and leads to mitochondrial dysfunction [dysfunction](https://www.sciencedirect.com/topics/neuroscience/rotenone)
+Exposure can cause muscle tremors, vomiting, tachycardia and hypotension. Chronic exposure to Rotenone correlates with Parkinson disease like symptoms in humans and to the degeneration of nigral dopaminergic [neurons](https://www.nature.com/articles/srep45465)
 
 # Methods:
 
